@@ -1,16 +1,17 @@
-import pytest
 from collections import namedtuple
+
+import pytest
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from graphene import NonNull
 from py.test import raises
 
 import graphene
+from graphene import NonNull
 from graphene.relay import ConnectionField, Node
-from graphene.types.datetime import DateTime, Date, Time
+from graphene.types.datetime import Date, DateTime, Time
 from graphene.types.json import JSONString
 
-from ..compat import JSONField, ArrayField, HStoreField, RangeField, MissingType
+from ..compat import ArrayField, HStoreField, JSONField, MissingType, RangeField
 from ..converter import (
     convert_django_field,
     convert_django_field_with_choices,
