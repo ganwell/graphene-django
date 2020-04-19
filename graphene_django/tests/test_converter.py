@@ -18,9 +18,7 @@ from ..converter import (
 )
 from ..registry import Registry
 from ..types import DjangoObjectType
-from ..settings import graphene_settings
 from .models import Article, Film, FilmDetails, Reporter
-
 
 # from graphene.core.types.custom_scalars import DateTime, Time, JSONString
 
@@ -333,9 +331,9 @@ def test_should_postgres_range_convert_list():
     assert field.type.of_type.of_type == graphene.Int
 
 
-def test_generate_enum_name():
+def test_generate_enum_name(settings):
     MockDjangoModelMeta = namedtuple("DjangoMeta", ["app_label", "object_name"])
-    graphene_settings.DJANGO_CHOICE_FIELD_ENUM_V3_NAMING = True
+    settings.DJANGO_CHOICE_FIELD_ENUM_V3_NAMING = True
 
     # Simple case
     field = graphene.Field(graphene.String, name="type")
@@ -351,5 +349,3 @@ def test_generate_enum_name():
         generate_enum_name(model_meta, field)
         == "SomeLongAppNameSomeObjectFizzBuzzChoices"
     )
-
-    graphene_settings.DJANGO_CHOICE_FIELD_ENUM_V3_NAMING = False
